@@ -1,0 +1,26 @@
+#define STATE_SPLASH      0
+#define STATE_INITPLAY    1
+#define STATE_PLAY        2
+#define STATE_ENDGAME     3
+#define STATE_INITSCORES  4
+#define STATE_SCORES      5
+#define STATE_SETTING     6
+#define STATE_INITSETTING 7
+
+#define ButtonA   0
+#define ButtonB   1
+#define ButtonX   2
+#define ButtonY   3
+#define ButtonM   4
+#define ButtonH   5
+
+#define DpadLeft  6
+#define DpadRight 7
+#define DpadUp    8
+#define DpadDown  9
+
+#define SETT_SOUND      0
+#define SETT_MUSIC      1
+#define SETT_RESTART    2
+#define SETT_DIFFICULTY 3
+#define SETT_EXIT       4    

@@ -1,0 +1,8 @@
+title: COOP
+description: A space invader based game
+author: 32bitwoody
+splash:
+  file: ./assets/meta-splash.png
+icon:
+  file: ./assets/meta-icon.png
+version: v0.7.0

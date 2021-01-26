@@ -1,0 +1,6 @@
+assets.cpp:
+  assets/sprites.png:
+    name: asset_sprites
+
+  assets/splash.png:
+    name: splash_data
