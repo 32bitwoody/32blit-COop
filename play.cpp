@@ -45,6 +45,10 @@ void play::init(uint8_t &m_gamestate){
   if(read_save(game_data,1)) {
     gamedataload=true;
     // Loaded sucessfully!
+    //reset alien bombs
+    for(uint8_t b=0; b<game_data.bombcount; b++) {
+      bomb[b]=Point(0,0);
+    }
   } else {
     // No save file or it failed to load, set up some defaults.
     strncpy(game_data.name, "COop game", 10);
@@ -52,11 +56,11 @@ void play::init(uint8_t &m_gamestate){
     gamedataload=false;
     game_data.lives=3;
     game_data.turret=80;
+    game_data.bombcount=1;
 
   }
     targetting=150;
     seperate=Point(25,18);
-    game_data.bombcount=0;
     
     hordemove=Point(20,40);
     direction=Point(1,0);
@@ -155,6 +159,7 @@ void play::update(uint32_t time,uint8_t &m_gamestate, bool button_p[], bool butt
   update_turret();
   update_missile(button_p);
   update_horde(time);
+
   if(counthorde==0) {
     newlevel(game_data.level+1);
     levelstart=time;
@@ -162,7 +167,7 @@ void play::update(uint32_t time,uint8_t &m_gamestate, bool button_p[], bool butt
   }
   update_bomb(0);
   if(game_data.lives==0) {
-    printf(" game over\n");
+//    printf(" game over\n");
     gameover=true;  
 //    m_gamestate = STATE_SCORES;
   }
@@ -171,9 +176,6 @@ void play::update(uint32_t time,uint8_t &m_gamestate, bool button_p[], bool butt
     score_data.highscore = score_data.score;
   }
   audio(time);
-  write_save(score_data,0);
-  write_save(game_data,1);  
-
 }
 //----------------------------------------------------------------------
 void play::render(uint32_t time){
@@ -354,10 +356,11 @@ void play::update_bomb(uint8_t t) {
  uint16_t highx;
  uint16_t targetarea;
  uint8_t loopcount;
+    printf("bomb count %d\n",game_data.bombcount);
 
   vibration = 0.0f;
   for(uint8_t b=0; b<game_data.bombcount; b++) {
-//    printf("bomb %d-%d,%d\n",b,bomb[b].x,bomb[b].y);
+    printf("bomb %d-%d,%d\n",b,bomb[b].x,bomb[b].y);
 
   if(bomb[b].y>0) {
     bomb[b].y++;
@@ -450,6 +453,8 @@ void play::update_horde(uint32_t time) {
 
           missile=Point(0,0);
           score_data.score=score_data.score+10;
+          write_save(score_data,0);
+          write_save(game_data,1);  
         }
               
 //        printf("%d,%d - %d,%d ",x,y,pos.x,pos.y);

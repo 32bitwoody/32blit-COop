@@ -3,7 +3,6 @@
 #include <memory>
 #include <cstdlib>
 #include <ctype.h>
-  #include <dirent.h>
 
 #include "splash.hpp"
 
@@ -19,16 +18,6 @@ splash::splash(){
 void splash::init(void){
 	printf("Splash Init ");
   screen.sprites = SpriteSheet::load(splash_data);
-
-if (auto dir = opendir("some_dir/")) {
-    while (auto f = readdir(dir)) {
-        if (!f->d_name || f->d_name[0] == '.')
-            continue; // Skip everything that starts with a dot
-
-        printf("File: %s\n", f->d_name);
-    }
-    closedir(dir);
-}
   
 // configure voices
 
